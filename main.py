@@ -405,6 +405,7 @@ class Level1:
     bgm_is_playing = False
 
     def __init__(self):
+        pygame.display.set_caption('Level 1')
         self.config()
 
     def config(self):
@@ -836,8 +837,9 @@ class Level4:
     gunshot = None
 
     def __init__(self):
-        self.config()
+        pygame.display.set_caption('Level 4')
         self.bgm = pygame.mixer.Sound('assets/audio/Level_4.mp3')
+        self.config()
 
     def config(self):
         self.surf = pygame.image.load('assets/mars_surface.jpg')
@@ -1467,8 +1469,9 @@ class Level3:
     bgm_is_playing = False
 
     def __init__(self):
-        self.config()
+        pygame.display.set_caption('Level 3')
         self.bgm = pygame.mixer.Sound('assets/audio/Level_3.mp3')
+        self.config()
 
     def handle_events(self):
         global running, LEVEL
