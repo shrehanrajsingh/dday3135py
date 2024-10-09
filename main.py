@@ -805,7 +805,7 @@ class Level2:
             self.gdp = 1
 
     def __del__(self):
-        self.bgm.fadeout(1500)
+        self.bgm.stop()
 
 
 class Level4:
@@ -1594,7 +1594,7 @@ class Level3:
         clock.tick(FPS)
 
     def __del__(self):
-        self.bgm.fadeout(1500)
+        self.bgm.stop()
 
 
 class WinScreen:
