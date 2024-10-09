@@ -1581,11 +1581,17 @@ class Level3:
         if self.mc and self.mc.is_dead:
             gameover = True
 
+        if self.mc and self.mc.pos_x + self.mc.spr_rect.get_width() >= WIDTH and not self.e.is_dead:
+            self.mc.pos_x = WIDTH - self.mc.spr_rect.get_width()
+
         if self.mc and self.mc.pos_x > WIDTH:
-            self.current_panel += 1
-            self.mc = None
-            self.e = None
-            self.update_components()
+            if self.e.is_dead:
+                self.current_panel += 1
+                self.mc = None
+                self.e = None
+                self.update_components()
+            else:
+                self.mc.pos_x = WIDTH - self.mc.spr_rect.get_width()
 
         if self.e and self.e.mcref is None:
             self.e.mcref = self.mc
