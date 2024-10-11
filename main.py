@@ -336,7 +336,8 @@ class Alien2:
         self.config()
 
     def config(self):
-        self.img = pygame.image.load(f'assets/lev3assets/a{self.rn}.png')
+        # self.img = pygame.image.load(f'assets/lev3assets/a{self.rn}.png')
+        self.img = pygame.image.load(f'assets/lev3assets/a2.png')
         self.img = pygame.transform.scale(self.img, (self.scale_x, self.scale_y))
 
     def set_coords(self, x, y):
