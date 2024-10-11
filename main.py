@@ -1668,203 +1668,206 @@ SHOW_MENU = -1
 SHOW_WINSCREEN = -2
 
 LEVEL = SHOW_MENU
-while running:
-    if gameover:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
-                toggle_fullscreen()
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                # running = False
-                gameover = False
-                LEVEL = SHOW_MENU
-
-        if LEVEL == 1:
-            screen.blit(background, (bg_x, bg_y))
-            screen.blit(spaceship, (0, 0))
-            for i in text_elements:
-                screen.blit(i[0], i[1])
-
-        pygame.draw.rect(screen, (200, 200, 200), game_over_banner.get_rect())
-        screen.blit(game_over_bd, (0, 0))
-        screen.blit(game_over_banner, (0, 0))
-
-        # add_text_element("Press <Esc> to quit", "WIDTH // 2", "HEIGHT // 1.5")
-
-        pygame.display.flip()
-        clock.tick(FPS)
-    else:
-        if LEVEL == SHOW_MENU:
+try:
+    while running:
+        if gameover:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-                # Toggle fullscreen with F key
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
                     toggle_fullscreen()
 
-                # Exit the game with Escape key
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    running = False
+                    # running = False
+                    gameover = False
+                    LEVEL = SHOW_MENU
 
-            if type(lv) != HomePage:
-                lv = HomePage()
+            if LEVEL == 1:
+                screen.blit(background, (bg_x, bg_y))
+                screen.blit(spaceship, (0, 0))
+                for i in text_elements:
+                    screen.blit(i[0], i[1])
 
-            if lv.level is not None:
-                LEVEL = lv.level
-                lv = None
-                continue
+            pygame.draw.rect(screen, (200, 200, 200), game_over_banner.get_rect())
+            screen.blit(game_over_bd, (0, 0))
+            screen.blit(game_over_banner, (0, 0))
 
-            lv.loop()
+            # add_text_element("Press <Esc> to quit", "WIDTH // 2", "HEIGHT // 1.5")
+
             pygame.display.flip()
             clock.tick(FPS)
+        else:
+            if LEVEL == SHOW_MENU:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
 
-        # elif LEVEL == 1:
-        #     for event in pygame.event.get():
-        #         if event.type == pygame.QUIT:
-        #             running = False
-        #
-        #         # Toggle fullscreen with F key
-        #         if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
-        #             toggle_fullscreen()
-        #             og_spaceship_instance = spaceship
-        #
-        #         # Exit the game with Escape key
-        #         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-        #             LEVEL = SHOW_MENU
-        #             break
-        #
-        #         if event.type == pygame.KEYUP:
-        #             spaceship = og_spaceship_instance
-        #
-        #     if LEVEL == SHOW_MENU:
-        #         continue
-        #
-        #     keys = pygame.key.get_pressed()
-        #     if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-        #         for i in asteroids_list:
-        #             i['pos_x'] = i['pos_x'] + i['size']
-        #
-        #         if spaceship == og_spaceship_instance:
-        #             spaceship = pygame.transform.rotate(spaceship, 1)
-        #
-        #     elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-        #         for i in asteroids_list:
-        #             i['pos_x'] = i['pos_x'] - i['size']
-        #
-        #         if spaceship == og_spaceship_instance:
-        #             spaceship = pygame.transform.rotate(spaceship, -1)
-        #
-        #     elif keys[pygame.K_UP] or keys[pygame.K_w]:
-        #         for i in asteroids_list:
-        #             i['pos_y'] = i['pos_y'] + i['size']
-        #
-        #     elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-        #         for i in asteroids_list:
-        #             i['pos_y'] = i['pos_y'] - i['size']
-        #
-        #     # screen.fill((16, 16, 16))
-        #     # draw_vertical_gradient((0, 128, 255), (255, 255, 255), WIDTH, HEIGHT)
-        #
-        #     screen.blit(background, (bg_x, bg_y))
-        #
-        #     for i in asteroids_list:
-        #         at = pygame.image.load('assets/asteroid.png')
-        #         at = pygame.transform.scale(at, (i['size'], i['size']))
-        #
-        #         if i['pos_x'] > WIDTH // 2:
-        #             screen.blit(at, (i['pos_x'] + 50 - i['size'], i['pos_y']))
-        #         else:
-        #             screen.blit(at, (i['pos_x'] - 50 + i['size'], i['pos_y']))
-        #
-        #         at_w, at_h = at.get_size()
-        #         if at_w * at_h > (WIDTH * HEIGHT) // 1.2 and i['pos_x'] in [WIDTH // 4, 0.75 * WIDTH] and i['pos_y'] in [HEIGHT // 4, 0.75 * HEIGHT]:
-        #             gameover = True
-        #             break
-        #
-        #         i['size'] += 5
-        #
-        #     screen.blit(spaceship, (0, 0))
-        #
-        #     for i in text_elements:
-        #         screen.blit(i[0], i[1])
-        #
-        #     if pi_done:
-        #         pygame.draw.rect(screen, (16, 16, 16), (WIDTH // 4, 5, WIDTH // 2 + 32, 32))
-        #         screen.blit(progress_image, (WIDTH - WIDTH // 4, 5))
-        #     else:
-        #         pygame.draw.rect(screen, (16, 16, 16), (WIDTH // 4, 5, WIDTH // 2 + 32, 32))
-        #         screen.blit(progress_image, (pi_x, pi_y))
-        #
-        #     pygame.display.flip()
-        #
-        #     if len (asteroids_list) < 5:
-        #         asteroids_list.append({
-        #             u'pos_x': random.randint(0, WIDTH),
-        #             u'pos_y': random.randint(0, HEIGHT),
-        #             u'size': 50,
-        #         })
-        #
-        #     for i in asteroids_list:
-        #         # print (i)
-        #         if i['size'] > HEIGHT:
-        #             wh = WIDTH // 2
-        #             wy = HEIGHT // 2
-        #             if i['pos_x'] > wh:
-        #                 if i['pos_x'] - i['size'] < wh:
-        #                     if i['pos_y'] < wy:
-        #                         if i['pos_y'] + i['size'] > wy:
-        #                             gameover = True
-        #             else:
-        #                 if i['pos_x'] + i['size'] > wh:
-        #                     if i['pos_y'] < wy:
-        #                         if i['pos_y'] + i['size'] < wy:
-        #                             gameover = True
-        #             asteroids_list.remove(i)
-        #         if i['pos_x'] < 0 or i['pos_x'] > WIDTH:
-        #              asteroids_list.remove(i)
-        #         elif i['pos_y'] < 0 or i['pos_y'] > HEIGHT:
-        #             asteroids_list.remove(i)
-        #
-        #     if pi_x < (WIDTH // 2 + WIDTH // 4):
-        #         pi_inc += 0.0005 * WIDTH
-        #         pi_x = (WIDTH // 4) + pi_inc
-        #     else:
-        #         pi_done = True
-        #     clock.tick(FPS)
+                    # Toggle fullscreen with F key
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+                        toggle_fullscreen()
 
-        elif LEVEL == 1:
-            if type(lv) != Level1:
-                lv = Level1()
+                    # Exit the game with Escape key
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        running = False
 
-            lv.loop()
+                if type(lv) != HomePage:
+                    lv = HomePage()
 
-        elif LEVEL == 2:
-            if type(lv) != Level2:
-                lv = Level2()
+                if lv.level is not None:
+                    LEVEL = lv.level
+                    lv = None
+                    continue
 
-            lv.loop()
+                lv.loop()
+                pygame.display.flip()
+                clock.tick(FPS)
 
-        elif LEVEL == 3:
-            if type(lv) != Level3:
-                lv = Level3()
+            # elif LEVEL == 1:
+            #     for event in pygame.event.get():
+            #         if event.type == pygame.QUIT:
+            #             running = False
+            #
+            #         # Toggle fullscreen with F key
+            #         if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+            #             toggle_fullscreen()
+            #             og_spaceship_instance = spaceship
+            #
+            #         # Exit the game with Escape key
+            #         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            #             LEVEL = SHOW_MENU
+            #             break
+            #
+            #         if event.type == pygame.KEYUP:
+            #             spaceship = og_spaceship_instance
+            #
+            #     if LEVEL == SHOW_MENU:
+            #         continue
+            #
+            #     keys = pygame.key.get_pressed()
+            #     if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            #         for i in asteroids_list:
+            #             i['pos_x'] = i['pos_x'] + i['size']
+            #
+            #         if spaceship == og_spaceship_instance:
+            #             spaceship = pygame.transform.rotate(spaceship, 1)
+            #
+            #     elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            #         for i in asteroids_list:
+            #             i['pos_x'] = i['pos_x'] - i['size']
+            #
+            #         if spaceship == og_spaceship_instance:
+            #             spaceship = pygame.transform.rotate(spaceship, -1)
+            #
+            #     elif keys[pygame.K_UP] or keys[pygame.K_w]:
+            #         for i in asteroids_list:
+            #             i['pos_y'] = i['pos_y'] + i['size']
+            #
+            #     elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            #         for i in asteroids_list:
+            #             i['pos_y'] = i['pos_y'] - i['size']
+            #
+            #     # screen.fill((16, 16, 16))
+            #     # draw_vertical_gradient((0, 128, 255), (255, 255, 255), WIDTH, HEIGHT)
+            #
+            #     screen.blit(background, (bg_x, bg_y))
+            #
+            #     for i in asteroids_list:
+            #         at = pygame.image.load('assets/asteroid.png')
+            #         at = pygame.transform.scale(at, (i['size'], i['size']))
+            #
+            #         if i['pos_x'] > WIDTH // 2:
+            #             screen.blit(at, (i['pos_x'] + 50 - i['size'], i['pos_y']))
+            #         else:
+            #             screen.blit(at, (i['pos_x'] - 50 + i['size'], i['pos_y']))
+            #
+            #         at_w, at_h = at.get_size()
+            #         if at_w * at_h > (WIDTH * HEIGHT) // 1.2 and i['pos_x'] in [WIDTH // 4, 0.75 * WIDTH] and i['pos_y'] in [HEIGHT // 4, 0.75 * HEIGHT]:
+            #             gameover = True
+            #             break
+            #
+            #         i['size'] += 5
+            #
+            #     screen.blit(spaceship, (0, 0))
+            #
+            #     for i in text_elements:
+            #         screen.blit(i[0], i[1])
+            #
+            #     if pi_done:
+            #         pygame.draw.rect(screen, (16, 16, 16), (WIDTH // 4, 5, WIDTH // 2 + 32, 32))
+            #         screen.blit(progress_image, (WIDTH - WIDTH // 4, 5))
+            #     else:
+            #         pygame.draw.rect(screen, (16, 16, 16), (WIDTH // 4, 5, WIDTH // 2 + 32, 32))
+            #         screen.blit(progress_image, (pi_x, pi_y))
+            #
+            #     pygame.display.flip()
+            #
+            #     if len (asteroids_list) < 5:
+            #         asteroids_list.append({
+            #             u'pos_x': random.randint(0, WIDTH),
+            #             u'pos_y': random.randint(0, HEIGHT),
+            #             u'size': 50,
+            #         })
+            #
+            #     for i in asteroids_list:
+            #         # print (i)
+            #         if i['size'] > HEIGHT:
+            #             wh = WIDTH // 2
+            #             wy = HEIGHT // 2
+            #             if i['pos_x'] > wh:
+            #                 if i['pos_x'] - i['size'] < wh:
+            #                     if i['pos_y'] < wy:
+            #                         if i['pos_y'] + i['size'] > wy:
+            #                             gameover = True
+            #             else:
+            #                 if i['pos_x'] + i['size'] > wh:
+            #                     if i['pos_y'] < wy:
+            #                         if i['pos_y'] + i['size'] < wy:
+            #                             gameover = True
+            #             asteroids_list.remove(i)
+            #         if i['pos_x'] < 0 or i['pos_x'] > WIDTH:
+            #              asteroids_list.remove(i)
+            #         elif i['pos_y'] < 0 or i['pos_y'] > HEIGHT:
+            #             asteroids_list.remove(i)
+            #
+            #     if pi_x < (WIDTH // 2 + WIDTH // 4):
+            #         pi_inc += 0.0005 * WIDTH
+            #         pi_x = (WIDTH // 4) + pi_inc
+            #     else:
+            #         pi_done = True
+            #     clock.tick(FPS)
 
-            lv.loop()
+            elif LEVEL == 1:
+                if type(lv) != Level1:
+                    lv = Level1()
 
-        elif LEVEL == 4:
-            if type(lv) != Level4:
-                lv = Level4()
+                lv.loop()
 
-            lv.loop()
+            elif LEVEL == 2:
+                if type(lv) != Level2:
+                    lv = Level2()
 
-        elif LEVEL == SHOW_WINSCREEN:
-            if type(lv) != WinScreen:
-                lv = WinScreen()
+                lv.loop()
 
-            lv.loop()
+            elif LEVEL == 3:
+                if type(lv) != Level3:
+                    lv = Level3()
+
+                lv.loop()
+
+            elif LEVEL == 4:
+                if type(lv) != Level4:
+                    lv = Level4()
+
+                lv.loop()
+
+            elif LEVEL == SHOW_WINSCREEN:
+                if type(lv) != WinScreen:
+                    lv = WinScreen()
+
+                lv.loop()
+except:
+    pass
 
 pygame.quit()
 sys.exit()
